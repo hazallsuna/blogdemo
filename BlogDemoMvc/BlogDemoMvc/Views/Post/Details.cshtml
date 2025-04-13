@@ -1,0 +1,53 @@
+﻿@model PostViewModel
+
+<div class="container border p-4 bg-white">
+    <h1 class="text-primary mb-4">Post Details</h1>
+
+    <div class="mb-3">
+        <div class="form-control-plaintext">@Model.Title</div>
+    </div>
+
+    <div class="mb-3">
+        <div class="form-control-plaintext">@Model.Description</div>
+    </div>
+
+    <div class="mb-3">
+        <img src="~/@Model.Image" class="img-fluid" style="max-width: 300px;" alt="Post image" />
+    </div>
+
+    <div class="mb-3">
+        <div class="form-control-plaintext">
+            @Model.CategoryName
+        </div>
+    </div>
+    <hr />
+    <h4>Yorumlar</h4>
+
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="d-flex mb-3">
+            <img src="~/user.jpg" class="rounded-circle me-2" width="40" height="40" />
+            <div>
+                <strong>@comment.FirstName</strong><br />
+                <strong>@comment.LastName</strong>
+                <small class="text-muted">@comment.PublishedOn.ToShortDateString()</small>
+                <p>@comment.Text</p>
+            </div>
+        </div>
+    }
+
+    <h4>Bir yorum yap</h4>
+
+    <form asp-action="AddComment" method="post">
+        <input type="hidden" name="PostId" value="@Model.PostId" />
+
+        <div class="mb-2">
+            <input name="Text" class="form-control" placeholder="Yorumunuz..." />
+        </div>
+
+        <button type="submit" class="btn btn-success">Yorum Yap</button>
+    </form>
+
+
+    <a asp-action="Index" asp-controller="Post" class="btn btn-primary">Back to Post List</a>
+</div>

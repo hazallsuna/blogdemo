@@ -1,0 +1,68 @@
+﻿using BlogDemoApi.Data;
+using BlogDemoApi.Dto;
+using BlogDemoApi.Model;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace BlogDemoApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CommentsController : ControllerBase
+    {
+        private readonly ApplicationDbContext dbContext;
+        public CommentsController(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
+        //GET
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCommentsByPost(int id)
+        {
+            var comments = await dbContext.Comment
+                .Include(c => c.User)
+                .Where(c => c.PostId == id)
+                .OrderByDescending(c => c.PublishedOn)
+                .Select(c => new
+            {
+                c.CommentId,
+                c.Text,
+                c.PublishedOn,
+                c.UserId,
+                c.User.FirstName,
+                c.User.LastName
+                })
+                .ToListAsync();
+
+            return Ok(comments);
+        }
+
+        //POST
+
+        [HttpPost]
+        public async Task<IActionResult> AddComment([FromBody] CommentCreateDto model)
+        {
+            var comment = new CommentEntity
+            {
+                Text = model.Text,
+                PublishedOn = DateTime.Now,
+                PostId = model.PostId,
+                UserId = model.UserId
+            };
+
+            dbContext.Comment.Add(comment);
+            await dbContext.SaveChangesAsync();
+
+            return Ok(new
+            {
+                comment.CommentId,
+                comment.Text,
+                comment.PublishedOn,
+                comment.PostId,
+                comment.UserId
+            });
+        }
+    }
+}

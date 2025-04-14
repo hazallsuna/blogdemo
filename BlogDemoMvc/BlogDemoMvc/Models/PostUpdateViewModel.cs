@@ -20,11 +20,6 @@ namespace BlogDemoMvc.Models
         [Required]
         public int CategoryId { get; set; }
         public DateTime PublishedOn { get; set; }
-
-        public int UserId { get; set; }
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-
         public string CategoryName { get; set; } = string.Empty;
         public List<SelectListItem>? Categories { get; set; }
 

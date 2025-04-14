@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using System.Security.Claims;
 
 namespace BlogDemoApi.Controllers
 {
@@ -48,6 +49,7 @@ namespace BlogDemoApi.Controllers
 
         //seçilen postun detayını getiriyoruz
         [HttpGet("GetPostsById")]
+        
         public async Task<ActionResult<PostDto>> GetPostsDetails(int Id)
         {
             if (Id == 0)
@@ -85,6 +87,7 @@ namespace BlogDemoApi.Controllers
 
 
         //yeni post ekliyoruz
+        [Authorize]
         [HttpPost]
         public ActionResult<PostEntity> AddPost([FromBody] PostCreateDto postDto)
         {
@@ -93,13 +96,15 @@ namespace BlogDemoApi.Controllers
                 {
                     return BadRequest(ModelState);
                 }
+
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
                 var post = new PostEntity
                 {
                     Title = postDto.Title,
                     Image = postDto.Image,
                     Description = postDto.Description,
                     CategoryId = postDto.CategoryId,
-                    UserId = postDto.UserId,
+                    UserId = userId,
                     PublishedOn = DateTime.Now
                 };
 
@@ -111,9 +116,14 @@ namespace BlogDemoApi.Controllers
 
         }
 
+
+        //güncellenecek post için form getiriyoruz
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<PostDto>> Get(int id)
         {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+
             var post = await dbContext.Post
                 .Include(p => p.Category)
                 .FirstOrDefaultAsync(x => x.PostId == id);
@@ -123,6 +133,10 @@ namespace BlogDemoApi.Controllers
                 return NotFound();
             }
 
+            if (post.UserId != userId)
+            {
+                return Forbid("Bu post size ait değil, formu göremezsiniz.");
+            }
             var postDto = new PostDto
             {
                 PostId = post.PostId,
@@ -138,6 +152,7 @@ namespace BlogDemoApi.Controllers
         }
 
         //seçilen postu güncelliyoruz
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id,
             [FromBody] PostDto postDto)
@@ -147,11 +162,18 @@ namespace BlogDemoApi.Controllers
                 return BadRequest(ModelState);
             }
 
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+
             var postDetails = dbContext.Post.FirstOrDefault(
                x => x.PostId == id);
             if (postDetails == null)
             {
                 return NotFound();
+            }
+
+            if (postDetails.UserId != userId)
+            {
+                return Forbid("Bu post size ait değil, güncelleyemezsiniz.");
             }
 
             postDetails.Title = postDto.Title;
@@ -165,10 +187,44 @@ namespace BlogDemoApi.Controllers
             return Ok();
         }
 
+        //login olmuş kullanıcı için post detay 
+        [Authorize]
+        [HttpGet("Delete/{id}")]
+        public async Task<ActionResult<PostDto>> GetPostByIdForDelete(int id)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+            var post = await dbContext.Post
+                  .Include(p => p.Category)
+                  .FirstOrDefaultAsync(p => p.PostId == id);
+
+            if (post == null)
+                return NotFound();
+
+            if (post.UserId != userId)
+                return Forbid();
+
+            var dto = new PostDto
+            {
+                PostId = post.PostId,
+                Title = post.Title,
+                Image = post.Image,
+                PublishedOn = post.PublishedOn,
+                Description = post.Description,
+                UserId = post.UserId,
+                CategoryId = post.CategoryId,
+                CategoryName = post.Category.CategoryName
+            };
+
+            return Ok(dto);
+        }
+
         //seçilen postu siliyoruz
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<PostEntity>> Delete(int id)
         {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+
             var post = await dbContext.Post
                .Include(p => p.Comments)
                .FirstOrDefaultAsync(p => p.PostId == id);

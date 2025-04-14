@@ -138,3 +138,5 @@ C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\obj\Debug\net8.0\refin
 C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\obj\Debug\net8.0\BlogDemoApi.pdb
 C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\obj\Debug\net8.0\BlogDemoApi.genruntimeconfig.cache
 C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\obj\Debug\net8.0\ref\BlogDemoApi.dll
+C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\obj\Debug\net8.0\BlogDemoApi.sourcelink.json
+C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

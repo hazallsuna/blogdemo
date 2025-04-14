@@ -15,9 +15,6 @@ namespace BlogDemoMvc.Models
         [Required(ErrorMessage = "Description is required.")]
         [StringLength(300, ErrorMessage = "Description must be at most 300 characters.")]
         public string? Description { get; set; }
-        public int UserId { get; set; }
-        public string? FirstName {  get; set; }
-        public string? LastName { get; set; }
 
         [Required(ErrorMessage = "Category is required.")]
         [Display(Name = "Category")]

@@ -29,6 +29,7 @@ namespace BlogDemoApi.Controllers
             return Ok(categories);
         }
 
+        //kategori ekle
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CategoryEntity model)
         {

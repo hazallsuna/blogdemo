@@ -39,3 +39,4 @@ C:\Users\Monster\Desktop\blogdemo\BlogDemoMvc\BlogDemoMvc\obj\Debug\net8.0\BlogD
 C:\Users\Monster\Desktop\blogdemo\BlogDemoMvc\BlogDemoMvc\obj\Debug\net8.0\BlogDemoMvc.genruntimeconfig.cache
 C:\Users\Monster\Desktop\blogdemo\BlogDemoMvc\BlogDemoMvc\obj\Debug\net8.0\ref\BlogDemoMvc.dll
 C:\Users\Monster\Desktop\blogdemo\BlogDemoMvc\BlogDemoMvc\bin\Debug\net8.0\libman.json
+C:\Users\Monster\Desktop\blogdemo\BlogDemoMvc\BlogDemoMvc\obj\Debug\net8.0\BlogDemoMvc.sourcelink.json

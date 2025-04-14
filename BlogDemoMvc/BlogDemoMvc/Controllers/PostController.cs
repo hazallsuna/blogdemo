@@ -12,12 +12,10 @@ namespace BlogDemoMvc.Controllers
 {
     public class PostController : Controller
     {
-        private readonly ApiService _apiService;
-        private string baseURL = "https://localhost:7278/";
-
-        public PostController()
+        private readonly ApiService _apiService;     
+        public PostController(ApiService apiService)
         {
-            _apiService = new ApiService();
+            _apiService = apiService;
         }
 
         public async Task<IActionResult> Index()
@@ -30,6 +28,11 @@ namespace BlogDemoMvc.Controllers
         }
         public async Task<IActionResult> Create()
         {
+            var token = HttpContext.Session.GetString("APIToken");
+
+            if (string.IsNullOrEmpty(token))
+                return RedirectToAction("Login", "AuthUser"); 
+
             var categoryList = await _apiService.GetAllCategories();
             if (categoryList == null)
                 return View(new PostViewModel());
@@ -48,13 +51,19 @@ namespace BlogDemoMvc.Controllers
 
         public async Task<IActionResult> CreatePost(PostViewModel post)
         {
-            bool success = await _apiService.CreatePost(post);
+            var token = HttpContext.Session.GetString("APIToken");
+
+            if (string.IsNullOrEmpty(token))
+                return RedirectToAction("Login", "AuthUser");
+
+            bool success = await _apiService.CreatePost(post, token);
 
             if (success)
                 return RedirectToAction("Index");
             else
-                return View("ErrorPage"); ;
+                return View("AccessDenied");
         }
+
 
         public async Task<IActionResult> Details(int id)
         {
@@ -70,9 +79,11 @@ namespace BlogDemoMvc.Controllers
         }
         public async Task<IActionResult> GetUpdatePost(int id)
         {
-            var postUpdateViewModel = await _apiService.GetPostForUpdate(id);
+            var token = HttpContext.Session.GetString("APIToken");
+            var postUpdateViewModel = await _apiService.GetPostForUpdate(id,token);
+
             if (postUpdateViewModel == null)
-                return View("ErrorPage");
+                return View("AccessDenied");
 
             postUpdateViewModel.Categories = await _apiService.GetCategoriesAsSelectItems(postUpdateViewModel.CategoryId);
 
@@ -80,13 +91,19 @@ namespace BlogDemoMvc.Controllers
         }
         public async Task<IActionResult> UpdatePost(int id, PostUpdateViewModel model)
         {
+            var token = HttpContext.Session.GetString("APIToken");
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("Login", "AuthUser");
+            }
+
             if (!ModelState.IsValid)
             {
                 model.Categories = await _apiService.GetCategoriesAsSelectItems(model.CategoryId);
                 return View("Update", model);
             }
 
-            bool success = await _apiService.UpdatePost(id, model);
+            bool success = await _apiService.UpdatePost(id, model,token);
 
             if (success)
             {
@@ -94,20 +111,30 @@ namespace BlogDemoMvc.Controllers
             }
             else
             {
-                return View("ErrorPage");
+                return View("AccessDenied");
             }
         }
         public async Task<IActionResult> DeleteConfirm(int id)
         {
-            var postViewModel = await _apiService.GetPostById(id);
+            var token = HttpContext.Session.GetString("APIToken");
+            if (string.IsNullOrEmpty(token))
+                return RedirectToAction("Login", "AuthUser");
+
+            var postViewModel = await _apiService.GetPostByIdForDelete(id,token);
+
             if (postViewModel == null)
-                return View("ErrorPage");
+                return View("AccessDenied");
 
             return View(postViewModel);
         }
         public async Task<IActionResult> Delete(int id)
         {
-            bool success = await _apiService.DeletePost(id);
+            var token = HttpContext.Session.GetString("APIToken");
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("Login", "AuthUser");
+            }
+            bool success = await _apiService.DeletePost(id,token);
 
             if (success)
             {
@@ -115,12 +142,18 @@ namespace BlogDemoMvc.Controllers
             }
             else
             {
-                return View("ErrorPage");
+                return View("AccessDenied");
             }
         }
         public async Task<IActionResult> AddComment(CommentCreateViewModel model)
         {
-            bool success = await _apiService.AddComment(model);
+            var token = HttpContext.Session.GetString("APIToken");
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("Login", "AuthUser");
+            }
+
+            bool success = await _apiService.AddComment(model,token);
 
             // Add error handling
             if (!success)
@@ -133,6 +166,11 @@ namespace BlogDemoMvc.Controllers
         }
 
         public IActionResult ErrorPage()
+        {
+            return View();
+        }
+
+        public IActionResult AccessDenied()
         {
             return View();
         }

@@ -1,9 +1,11 @@
 ﻿using BlogDemoApi.Data;
 using BlogDemoApi.Dto;
 using BlogDemoApi.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace BlogDemoApi.Controllers
 {
@@ -40,16 +42,18 @@ namespace BlogDemoApi.Controllers
         }
 
         //POST
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddComment([FromBody] CommentCreateDto model)
         {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+
             var comment = new CommentEntity
             {
                 Text = model.Text,
                 PublishedOn = DateTime.Now,
                 PostId = model.PostId,
-                UserId = model.UserId
+                UserId = userId
             };
 
             dbContext.Comment.Add(comment);

@@ -1,41 +1,92 @@
 ﻿@model PostViewModel
 
-<form asp-action="CreatePost" method="post">
-    <div class="container border p-4 bg-white">
-        <h1 class="text-primary mb-4">New Post</h1>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
+<form id="postForm" asp-action="CreatePost" method="post" enctype="multipart/form-data">
+    <div class="container border p-4 bg-white mt-4 shadow-sm rounded">
+        <!-- Başlık -->
+        <h2 class="fw-bold text-primary mb-4">Create New Post</h2>
+
+        <!-- Title -->
         <div class="mb-3">
-            <label asp-for="Title" class="form-label"></label>
-            <input asp-for="Title" class="form-control" />
+            <label asp-for="Title" class="form-label fw-bold"></label>
+            <input asp-for="Title" class="form-control font-weight-bold" placeholder="Enter title..." />
             <span asp-validation-for="Title" class="text-danger"></span>
         </div>
 
+        <!-- Description -->
         <div class="mb-3">
-            <label asp-for="Description" class="form-label"></label>
-            <input asp-for="Description" class="form-control" />
+            <label asp-for="Description" class="form-label fw-bold"></label>
+            <textarea asp-for="Description" class="form-control" placeholder="Tell your story..." rows="6"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
+        <!-- Image Upload -->
         <div class="mb-3">
-            <label asp-for="Image" class="form-label"></label>
-            <input asp-for="Image" class="form-control" />
-            <span asp-validation-for="Image" class="text-danger"></span>
+            <label for="imageFile" class="form-label fw-bold">Image</label>
+            <input type="file" id="imageFile" class="form-control" />
+            <input type="hidden" name="Image" id="imageInput" />
         </div>
 
-        <!-- Category Dropdown -->
+        <!-- Category -->
         <div class="mb-3">
-            <label asp-for="CategoryId" class="form-label"></label>
+            <label asp-for="CategoryId" class="form-label fw-bold"></label>
             <select asp-for="CategoryId" asp-items="Model.Categories" class="form-select">
                 <option value="">Select a category</option>
             </select>
             <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
 
-        <br />
-        <div class="col-5">
-          <a asp-action="Index" asp-controller="Post" class="btn btn-primary form-control">Back to Post List </a>
-
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <a asp-action="Index" asp-controller="Post" class="btn btn-outline-secondary px-4">
+                <i class="bi bi-arrow-left"></i> Back to Post List
+            </a>
+            <button type="submit" class="btn btn-primary px-4">
+                <i class="bi bi-send"></i> Create
+            </button>
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
     </div>
 </form>
+
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+@section Scripts {
+    <script>
+        const form = document.getElementById("postForm");
+
+        form.addEventListener("submit", async function (e) {
+            const imageFile = document.getElementById("imageFile").files[0];
+
+            if (imageFile) {
+                e.preventDefault();
+
+                const formData = new FormData();
+                formData.append("formFile", imageFile);
+
+                try {
+                    const response = await fetch("https://localhost:7278/api/Posts/Image", {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        alert("Görsel yüklenemedi.");
+                        return;
+                    }
+
+                    const data = await response.json();
+                    document.getElementById("imageInput").value = data.imageUrl;
+
+                    form.submit();
+                } catch (err) {
+                    console.error("Görsel yüklenirken hata oluştu:", err);
+                    alert("Sunucu hatası.");
+                }
+            } else {
+                document.getElementById("imageInput").value = "/img/ai.jpg";
+                form.submit();
+            }
+        });
+    </script>
+}

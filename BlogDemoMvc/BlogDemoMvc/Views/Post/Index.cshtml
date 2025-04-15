@@ -1,34 +1,61 @@
 ﻿@model List<PostViewModel>
+@using Microsoft.AspNetCore.Mvc.Rendering
 
-<div class="row">
-    <div class="col-12">
-        <a asp-controller ="Post" asp-action="Create"
-            class="btn btn-primary">New Post</a>
-        <table class="table table-bordered mt-3">
-            <thead>
-                <tr>
-                    <th style="width: 200px;">Image</th>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th style="width: 125px;"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- Yeni Post Butonu -->
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> New Post
+        </a>
+
+        <!-- Kategori Dropdown -->
+        <form asp-action="Index" method="get" class="d-flex">
+            <select name="categoryId" class="form-select w-auto" onchange="this.form.submit()">
+                <option value="">All Categories</option>
+                @foreach (var item in ViewBag.Categories as List<SelectListItem>)
                 {
-                    <tr>
-                        <td><img src="~/ai.jpg" class="img-fluid" alt=""></td>
-                        <td>@item.Title</td>
-                        <td>@item.CategoryName</td>
-                        <td>@item.Description</td>
-                        <td>
-                            <a asp-controller="Post" asp-action="Details" asp-route-Id="@item.PostId" class="btn btn-sm btn-info">Detail </a>
-                            <a asp-controller="Post" asp-action="GetUpdatePost" asp-route-Id="@item.PostId" class="btn btn-sm btn-primary">Update </a>
-                            <a asp-controller="Post" asp-action="DeleteConfirm" asp-route-Id="@item.PostId" class="btn btn-sm btn-success">Delete</a>
-                    </tr>
+                    <option value="@item.Value" selected="@item.Selected">@item.Text</option>
                 }
-            </tbody>
-        </table>
+            </select>
+        </form>
+    </div>
+
+    <!-- Kart yapısı -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="@item.Image" class="card-img-top" alt="Post Image" style="height: 180px; object-fit: cover;" />
+
+                    <div class="card-body">
+                        <h5 class="card-title text-dark">@item.Title</h5>
+                        <p class="card-text text-muted">@item.Description</p>
+                        <span class="badge bg-secondary">@item.CategoryName</span>
+                    </div>
+
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="bi bi-person-circle me-1"></i> @item.FirstName @item.LastName
+                        </small>
+
+                        <div>
+                            <a asp-action="Details" asp-route-id="@item.PostId" class="text-info text-decoration-none me-2" title="Details">
+                                <i class="bi bi-info-circle fs-5"></i>
+                            </a>
+                            <a asp-action="GetUpdatePost" asp-route-id="@item.PostId" class="text-warning text-decoration-none me-2" title="Edit">
+                                <i class="bi bi-pencil-square fs-5"></i>
+                            </a>
+                            <a asp-action="DeleteConfirm" asp-route-id="@item.PostId" class="text-danger" title="Delete">
+                                <i class="bi bi-trash fs-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>

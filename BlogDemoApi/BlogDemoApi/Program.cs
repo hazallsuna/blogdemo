@@ -6,6 +6,15 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMvcApp", policy =>
+    {
+        policy.WithOrigins("https://localhost:7247") 
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -45,6 +54,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+app.UseCors("AllowMvcApp");
+
 
 app.UseAuthentication();  
 app.UseAuthorization();

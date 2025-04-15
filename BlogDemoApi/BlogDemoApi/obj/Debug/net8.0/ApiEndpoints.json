@@ -229,6 +229,22 @@
     ]
   },
   {
+    "ContainingType": "BlogDemoApi.Controllers.PostsController",
+    "Method": "UploadImage",
+    "RelativePath": "api/Posts/Image",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "formFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "BlogDemoApi.Controllers.UsersController",
     "Method": "Login",
     "RelativePath": "api/Users/Login",

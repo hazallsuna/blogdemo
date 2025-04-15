@@ -140,3 +140,4 @@ C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\obj\Debug\net8.0\BlogD
 C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\obj\Debug\net8.0\ref\BlogDemoApi.dll
 C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\obj\Debug\net8.0\BlogDemoApi.sourcelink.json
 C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Monster\Desktop\blogdemo\BlogDemoApi\BlogDemoApi\bin\Debug\net8.0\BlogDemoApi.staticwebassets.runtime.json

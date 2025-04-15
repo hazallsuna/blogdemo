@@ -1,38 +1,62 @@
 ﻿@model PostViewModel
-<div class="container border p-4 bg-white">
-    <h1 class="text-danger mb-4">Delete Post</h1>
-    <div class="alert alert-warning">
-        <h4>Are you sure you want to delete this post?</h4>
-        <p>This action cannot be undone.</p>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+<style>
+    button:focus,
+    a:focus {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+    .custom-cancel-link:hover {
+        background-color: #f0f0f0;
+        border-color: #bbb;
+        color: #000;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .custom-delete-btn:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+        transition: all 0.2s ease-in-out;
+    }
+</style>
+
+<div class="container mt-5" style="max-width: 850px;">
+    <div class="mb-4">
+        <h2 class="fw-bold text-danger"> Delete Post</h2>
+        <div class="p-3 bg-light border rounded mt-3">
+            <h5 class="mb-1 fw-semibold text-dark">
+                <i class="bi bi-exclamation-triangle-fill me-2 text-warning"></i>
+                Are you sure you want to delete this post?
+            </h5>
+            <small class="text-muted">This action cannot be undone.</small>
+        </div>
     </div>
 
-    <div class="card mb-4">
-        <div class="card-header">
-            <h5>@Model.Title</h5>
+    <!-- Post Preview -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <img src="@Model.Image" alt="Post image"
+                 class="img-fluid rounded border"
+                 style="max-height: 200px; object-fit: cover;" />
         </div>
-        <div class="card-body">
-            <p>@Model.Description</p>
-            <p><small class="text-muted">Category: @Model.CategoryName</small></p>
-            @if (!string.IsNullOrEmpty(Model.Image))
-            {
-                <img src="~/@Model.Image" style="max-height: 100px;" class="img-thumbnail" />
-            }
-            <p><small class="text-muted">Published on: @Model.PublishedOn.ToShortDateString()</small></p>
+        <div class="col-md-8">
+            <h4 class="fw-bold">@Model.Title</h4>
+            <p class="text-muted">
+                <span class="badge bg-light text-dark border">@Model.CategoryName</span>
+                • @Model.PublishedOn.ToString("dd.MM.yyyy")
+            </p>
+            <p class="text-secondary" style="line-height: 1.6;">@Model.Description</p>
         </div>
     </div>
 
-    <div class="row mt-4">
-        <div class="col-6">
-            <a asp-action="Index" class="btn btn-secondary w-100">
-                <i class="fas fa-arrow-left"></i> Cancel
-            </a>
-        </div>
-        <div class="col-6">
-            <form asp-action="Delete" asp-route-id="@Model.PostId" method="post">
-                <button type="submit" class="btn btn-danger w-100">
-                    <i class="fas fa-trash"></i> Delete Post
-                </button>
-            </form>
-        </div>
+    <!-- Buttons -->
+    <div class="d-flex justify-content-between gap-3">
+        <a asp-action="Index" class="btn btn-light border w-50 custom-cancel-link"> Cancel
+        </a>
+
+        <form asp-action="Delete" asp-route-id="@Model.PostId" method="post" class="w-50">
+            <button type="submit" class="btn btn-danger w-100 custom-delete-btn">Delete
+            </button>
+        </form>
     </div>
 </div>

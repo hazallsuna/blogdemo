@@ -1,53 +1,85 @@
 ﻿@model PostViewModel
-
-<div class="container border p-4 bg-white">
-    <h1 class="text-primary mb-4">Post Details</h1>
-
-    <div class="mb-3">
-        <div class="form-control-plaintext">@Model.Title</div>
-    </div>
-
-    <div class="mb-3">
-        <div class="form-control-plaintext">@Model.Description</div>
-    </div>
-
-    <div class="mb-3">
-        <img src="~/@Model.Image" class="img-fluid" style="max-width: 300px;" alt="Post image" />
-    </div>
-
-    <div class="mb-3">
-        <div class="form-control-plaintext">
-            @Model.CategoryName
-        </div>
-    </div>
-    <hr />
-    <h4>Yorumlar</h4>
-
-    @foreach (var comment in Model.Comments)
-    {
-        <div class="d-flex mb-3">
-            <img src="~/user.jpg" class="rounded-circle me-2" width="40" height="40" />
-            <div>
-                <strong>@comment.FirstName</strong><br />
-                <strong>@comment.LastName</strong>
-                <small class="text-muted">@comment.PublishedOn.ToShortDateString()</small>
-                <p>@comment.Text</p>
-            </div>
-        </div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+<style>
+    button:focus {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+    .custom-cancel-btn:hover {
+        background-color: #f0f0f0;
+        color: #000;
+        border-color: #ccc;
+        transition: all 0.2s ease-in-out;
     }
 
-    <h4>Bir yorum yap</h4>
+    .custom-respond-btn:hover {
+        background-color: #343a40;
+        color: #fff;
+        transition: all 0.2s ease-in-out;
+    }
 
-    <form asp-action="AddComment" method="post">
-        <input type="hidden" name="PostId" value="@Model.PostId" />
+</style>
 
-        <div class="mb-2">
-            <input name="Text" class="form-control" placeholder="Yorumunuz..." />
+<div class="container mt-5">
+
+    <!-- Post Görünümü -->
+    <div class="row mb-5 align-items-center">
+        <div class="col-md-4">
+            <img src="@Model.Image" class="img-thumbnail" style="max-height: 250px; object-fit: cover;" alt="Post image" />
         </div>
+        <div class="col-md-8">
+            <h1 class="fw-bold mb-2">@Model.Title</h1>
+            <p class="text-muted mb-3">
+                <span class="badge bg-light text-dark border">@Model.CategoryName</span>
+                • @Model.PublishedOn.ToString("dd.MM.yyyy")
+                • <span class="text-capitalize"><i class="bi bi-person-circle me-1"></i>@Model.FirstName @Model.LastName</span>
+            </p>
+            <p class="text-secondary" style="font-size: 1.1rem; line-height: 1.7;">
+                @Html.Raw(Model.Description)
+            </p>
+        </div>
+    </div>
 
-        <button type="submit" class="btn btn-success">Yorum Yap</button>
-    </form>
+    <!-- Comments Section -->
+    <div class="mb-4" style="max-width: 800px;">
+        <h4 class="fw-bold mb-3">Comments</h4>
 
+        @if (Model.Comments != null && Model.Comments.Count > 0)
+        {
+            foreach (var comment in Model.Comments)
+            {
+                <div class="d-flex mb-4">
+                    <img src="~/user.jpg" class="rounded-circle me-3" width="45" height="45" />
+                    <div>
+                        <div class="fw-normal">@comment.FirstName @comment.LastName</div>
+                        <small class="text-muted">@comment.PublishedOn.ToString("dd.MM.yyyy")</small>
+                        <p class="mt-2">@comment.Text</p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-muted">No comments yet.</p>
+        }
+    </div>
 
-    <a asp-action="Index" asp-controller="Post" class="btn btn-primary">Back to Post List</a>
+    <!-- Add Comment -->
+    <div class="card p-4 shadow-sm mb-5" style="max-width: 800px;">
+        <form asp-action="AddComment" method="post">
+            <input type="hidden" name="PostId" value="@Model.PostId" />
+            <div class="form-group mb-3">
+                <textarea name="Text" rows="3" class="form-control shadow-sm" placeholder="What are your thoughts?"></textarea>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+                <button type="button" class="btn btn-light border custom-cancel-btn"
+                        onclick="document.querySelector('textarea[name=Text]').value = '';">
+                    <i class="bi bi-x-lg"></i> Cancel
+                </button>
+                <button type="submit" class="btn btn-dark custom-respond-btn">
+                    <i class="bi bi-reply"></i> Respond
+                </button>
+            </div>
+        </form>
+    </div>
 </div>

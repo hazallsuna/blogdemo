@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\img\\651f8332-288a-452b-a989-72f0c2760542.jpg",
+      "PackagePath": "staticwebassets\\img\\651f8332-288a-452b-a989-72f0c2760542.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\img\\944c9404-beac-4add-bc79-80ac3294889c.webp",
+      "PackagePath": "staticwebassets\\img\\944c9404-beac-4add-bc79-80ac3294889c.webp"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BlogDemoApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BlogDemoApi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.BlogDemoApi.props",
+      "PackagePath": "build\\BlogDemoApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.BlogDemoApi.props",
+      "PackagePath": "buildMultiTargeting\\BlogDemoApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.BlogDemoApi.props",
+      "PackagePath": "buildTransitive\\BlogDemoApi.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

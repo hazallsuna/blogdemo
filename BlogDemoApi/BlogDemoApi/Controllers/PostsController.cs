@@ -143,7 +143,7 @@ namespace BlogDemoApi.Controllers
                 Title = post.Title ?? string.Empty,
                 Description = post.Description ?? string.Empty,
                 CategoryId = post.CategoryId,
-                Image = post.Image ?? "ai.jpg",
+                Image = post.Image,
                 PublishedOn = post.PublishedOn,
                 CategoryName = post.Category?.CategoryName ?? ""
             };
@@ -240,6 +240,35 @@ namespace BlogDemoApi.Controllers
             await dbContext.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        //görsel ekliyoruz
+        [HttpPost("Image")]
+        public async Task<IActionResult> UploadImage(IFormFile formFile)
+        {
+            try
+            {
+                if (formFile == null || formFile.Length == 0)
+                {
+                    return BadRequest("The file could not be selected.");
+                }
+
+                var extent = Path.GetExtension(formFile.FileName);
+                var randomName = $"{Guid.NewGuid()}{extent}";
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomName);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await formFile.CopyToAsync(stream);
+                }
+
+                return Ok(new { imageUrl = $"https://localhost:7278/img/{randomName}" });
+            }
+            catch (Exception ex)
+            {
+                // ❗ buraya düşüyorsa logla:
+                return StatusCode(500, $"Sunucu hatası: {ex.Message}");
+            }
         }
 
 

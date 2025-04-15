@@ -18,12 +18,18 @@ namespace BlogDemoMvc.Controllers
             _apiService = apiService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? categoryId)
         {
             var posts = await _apiService.GetAllPosts();
             if (posts == null)
                 return View("ErrorPage");
 
+            if (categoryId.HasValue)
+            {
+                posts=posts.Where(p=> p.CategoryId == categoryId).ToList();
+            }
+
+            ViewBag.Categories=await _apiService.GetCategoriesAsSelectItems(categoryId ?? 0);
             return View(posts);
         }
         public async Task<IActionResult> Create()
@@ -87,7 +93,7 @@ namespace BlogDemoMvc.Controllers
 
             postUpdateViewModel.Categories = await _apiService.GetCategoriesAsSelectItems(postUpdateViewModel.CategoryId);
 
-            return View(postUpdateViewModel);
+            return View("Update",postUpdateViewModel);
         }
         public async Task<IActionResult> UpdatePost(int id, PostUpdateViewModel model)
         {

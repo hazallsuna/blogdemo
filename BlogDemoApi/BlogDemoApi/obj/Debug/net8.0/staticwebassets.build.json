@@ -1,12 +1,228 @@
 {
   "Version": 1,
-  "Hash": "6jQegxojvGfFZ9XoKYFdarL1VkuunMrEggeS0xqjEmA=",
+  "Hash": "eQ0N76afsMswM69vzWy560VjrMnaXJURTwI1RU2+uxc=",
   "Source": "BlogDemoApi",
   "BasePath": "_content/BlogDemoApi",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "BlogDemoApi\\wwwroot",
+      "Source": "BlogDemoApi",
+      "ContentRoot": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\",
+      "BasePath": "_content/BlogDemoApi",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\img\\651f8332-288a-452b-a989-72f0c2760542.jpg",
+      "SourceId": "BlogDemoApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\",
+      "BasePath": "_content/BlogDemoApi",
+      "RelativePath": "img/651f8332-288a-452b-a989-72f0c2760542#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8r9dv6ei5r",
+      "Integrity": "XNYXVJMvSr+fDhVjFMN48uHVU9TPOyF6/VRMYiqO8Zg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\651f8332-288a-452b-a989-72f0c2760542.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\img\\944c9404-beac-4add-bc79-80ac3294889c.webp",
+      "SourceId": "BlogDemoApi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\",
+      "BasePath": "_content/BlogDemoApi",
+      "RelativePath": "img/944c9404-beac-4add-bc79-80ac3294889c#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5hr7miw1zo",
+      "Integrity": "J9tjBU4hSFCFcrqE+wLyamsoFSMNkLRJVovGVRTzikE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\944c9404-beac-4add-bc79-80ac3294889c.webp"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "img/651f8332-288a-452b-a989-72f0c2760542.8r9dv6ei5r.jpg",
+      "AssetFile": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\img\\651f8332-288a-452b-a989-72f0c2760542.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "18982"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XNYXVJMvSr+fDhVjFMN48uHVU9TPOyF6/VRMYiqO8Zg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Apr 2025 00:39:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8r9dv6ei5r"
+        },
+        {
+          "Name": "label",
+          "Value": "img/651f8332-288a-452b-a989-72f0c2760542.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-XNYXVJMvSr+fDhVjFMN48uHVU9TPOyF6/VRMYiqO8Zg="
+        }
+      ]
+    },
+    {
+      "Route": "img/651f8332-288a-452b-a989-72f0c2760542.jpg",
+      "AssetFile": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\img\\651f8332-288a-452b-a989-72f0c2760542.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "18982"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"XNYXVJMvSr+fDhVjFMN48uHVU9TPOyF6/VRMYiqO8Zg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Apr 2025 00:39:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-XNYXVJMvSr+fDhVjFMN48uHVU9TPOyF6/VRMYiqO8Zg="
+        }
+      ]
+    },
+    {
+      "Route": "img/944c9404-beac-4add-bc79-80ac3294889c.5hr7miw1zo.webp",
+      "AssetFile": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\img\\944c9404-beac-4add-bc79-80ac3294889c.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "44434"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"J9tjBU4hSFCFcrqE+wLyamsoFSMNkLRJVovGVRTzikE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Apr 2025 00:53:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5hr7miw1zo"
+        },
+        {
+          "Name": "label",
+          "Value": "img/944c9404-beac-4add-bc79-80ac3294889c.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-J9tjBU4hSFCFcrqE+wLyamsoFSMNkLRJVovGVRTzikE="
+        }
+      ]
+    },
+    {
+      "Route": "img/944c9404-beac-4add-bc79-80ac3294889c.webp",
+      "AssetFile": "C:\\Users\\Monster\\Desktop\\blogdemo\\BlogDemoApi\\BlogDemoApi\\wwwroot\\img\\944c9404-beac-4add-bc79-80ac3294889c.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "44434"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"J9tjBU4hSFCFcrqE+wLyamsoFSMNkLRJVovGVRTzikE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 15 Apr 2025 00:53:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-J9tjBU4hSFCFcrqE+wLyamsoFSMNkLRJVovGVRTzikE="
+        }
+      ]
+    }
+  ]
 }

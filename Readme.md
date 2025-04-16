@@ -3,6 +3,15 @@
 **TechOdyssey**, kullanıcıların teknoloji odaklı blog gönderileri okuyabileceği, yorum yapabileceği ve kendi içeriklerini oluşturabileceği modern bir MVC tabanlı blog platformudur.
 
 ---
+## 🎥 Uygulama Tanıtım Videoları
+
+<a href="https://drive.google.com/file/d/19KTJl0I1-y-paOR5M8GBglRr425RxJGB/view?usp=sharing" target="_blank">
+  <img src="https://img.shields.io/badge/🎬%20Postman%20API%20Test%20Videosu-blue?style=for-the-badge" alt="Postman API Test Videosu">
+</a>
+
+<a href="https://drive.google.com/file/d/1t-hTMDQxl8p5GvNxmW92wE_HzgPeUUwQ/view?usp=sharing" target="_blank">
+  <img src="https://img.shields.io/badge/🎬%20Blog%20Platformu%20Kullanım%20Videosu-green?style=for-the-badge" alt="TechOdyssey-Blog Platform Kullanım Videosu">
+</a>
 
 ## 🚀 Özellikler
 
@@ -76,12 +85,3 @@
 
 ---
 
-## 🎥 Uygulama Tanıtım Videoları
-
-<a href="https://drive.google.com/file/d/19KTJl0I1-y-paOR5M8GBglRr425RxJGB/view?usp=sharing" target="_blank">
-  <img src="https://img.shields.io/badge/🎬%20Postman%20API%20Test%20Videosu-blue?style=for-the-badge" alt="Postman API Test Videosu">
-</a>
-
-<a href="https://drive.google.com/file/d/1t-hTMDQxl8p5GvNxmW92wE_HzgPeUUwQ/view?usp=sharing" target="_blank">
-  <img src="https://img.shields.io/badge/🎬%20Blog%20Platformu%20Kullanım%20Videosu-green?style=for-the-badge" alt="TechOdyssey-Blog Platform Kullanım Videosu">
-</a>

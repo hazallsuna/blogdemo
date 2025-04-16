@@ -25,11 +25,6 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="mainNav">
                     <ul class="navbar-nav align-items-lg-center">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="AuthUser" asp-action="Register">
-                                <i class="bi bi-person-plus me-1"></i> Register
-                            </a>
-                        </li>
 
                         @{
                             var token = Context.Session.GetString("APIToken");
@@ -39,7 +34,7 @@
                         @if (!string.IsNullOrEmpty(token))
                         {
                             <li class="nav-item">
-                                <span class="nav-link text-success">Hi, @firstName!</span>
+                                <span class="nav-link fw-semibold" style="color: #343a40;">Hi, @firstName!</span>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="AuthUser" asp-action="Logout">
@@ -49,6 +44,11 @@
                         }
                         else
                         {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="AuthUser" asp-action="Register">
+                                    <i class="bi bi-person-plus me-1"></i> Register
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="AuthUser" asp-action="Login">
                                     <i class="bi bi-box-arrow-in-right me-1"></i> Login

@@ -48,20 +48,24 @@ namespace BlogDemoMvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginRequestViewModel obj)
         {
-            LoginResponseViewModel objResponse = new LoginResponseViewModel();
-            objResponse=await _apiService.AuthenticateUser(obj);
+            if (!ModelState.IsValid)
+            {
+                return View(obj); // Client-side validation hataları varsa
+            }
+
+            var objResponse = await _apiService.AuthenticateUser(obj);
 
             if (objResponse != null && !string.IsNullOrEmpty(objResponse.Token))
             {
                 HttpContext.Session.SetString("APIToken", objResponse.Token);
                 HttpContext.Session.SetString("UserFirstName", objResponse.UserDetails.FirstName ?? "");
-                return RedirectToAction("Index","Post");
+                return RedirectToAction("Index", "Post");
             }
             else
             {
-                HttpContext.Session.SetString("APIToken", "");
+                ModelState.AddModelError(string.Empty, "Invalid email or password."); // <== BURASI ÖNEMLİ
+                return View(obj);
             }
-            return View(objResponse);
         }
         public async Task <IActionResult> Logout()
         {

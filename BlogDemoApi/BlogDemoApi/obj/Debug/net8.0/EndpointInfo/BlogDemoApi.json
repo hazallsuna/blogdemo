@@ -460,6 +460,54 @@
           }
         }
       }
+    },
+    "/api/Users/Register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -586,8 +634,7 @@
       },
       "PostDto": {
         "required": [
-          "description",
-          "title"
+          "description"
         ],
         "type": "object",
         "properties": {
@@ -596,8 +643,8 @@
             "format": "int32"
           },
           "title": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "image": {
             "type": "string",
@@ -637,6 +684,10 @@
               "$ref": "#/components/schemas/SelectListItem"
             },
             "nullable": true
+          },
+          "commentCount": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -684,6 +735,40 @@
               "$ref": "#/components/schemas/CommentEntity"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterDto": {
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "password",
+          "passwordConfirmed"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "lastName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 6,
+            "type": "string"
+          },
+          "passwordConfirmed": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false

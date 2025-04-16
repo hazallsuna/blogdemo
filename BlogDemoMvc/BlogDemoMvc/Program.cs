@@ -36,7 +36,7 @@ builder.Services.AddHttpClient<ApiService, ApiService>(client =>
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(50);
+    options.IdleTimeout = TimeSpan.FromSeconds(100);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -63,6 +63,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Post}/{action=Index}/{id?}");
 
 app.Run();

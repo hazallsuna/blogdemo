@@ -1,6 +1,8 @@
 ﻿using BlogDemoApi.Data;
+using BlogDemoApi.Dto;
 using BlogDemoApi.Model;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -16,11 +18,13 @@ namespace BlogDemoApi.Controllers
     {
         public readonly ApplicationDbContext dbContext;
         private string _SecretKey;
+        private readonly IPasswordHasher<UserEntity> _passwordHasher;
 
-        public UsersController(ApplicationDbContext dbContext, IConfiguration configuration)
+        public UsersController(ApplicationDbContext dbContext, IConfiguration configuration, IPasswordHasher<UserEntity> passwordHasher)
         {
             this.dbContext = dbContext;
             this._SecretKey = configuration.GetValue<string>("ApiSettings:Secret");
+            _passwordHasher = passwordHasher;
         }
 
         [HttpPost("Login")]
@@ -29,12 +33,16 @@ namespace BlogDemoApi.Controllers
             var user = dbContext.User
                // .Include(u => u.Posts)
               // .Include(u => u.Comments)
-                .FirstOrDefault(u => u.Email == logindetails.Email && u.Password == logindetails.Password);
+                .FirstOrDefault(u => u.Email == logindetails.Email);
 
             if (user == null)
             {
                 return null;
             }
+
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, logindetails.Password);
+            if (result != PasswordVerificationResult.Success)
+                return null;
 
             //create JWT Token
 
@@ -63,5 +71,30 @@ namespace BlogDemoApi.Controllers
             return loginResponse;
 
         }
+
+        [HttpPost("Register")]
+        public async Task<ActionResult<RegisterDto>> Register(RegisterDto registerDto)
+        {
+            if (registerDto.Password != registerDto.PasswordConfirmed)
+                return BadRequest("Passwords do not match.");
+
+            var existingUser = await dbContext.User.FirstOrDefaultAsync(u => u.Email == registerDto.Email);
+            if (existingUser != null)
+                return BadRequest("Email already exists.");
+
+            var newUser = new UserEntity
+            {
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                Email = registerDto.Email
+            };
+
+            newUser.Password = _passwordHasher.HashPassword(newUser, registerDto.Password);
+
+            dbContext.User.Add(newUser);
+            await dbContext.SaveChangesAsync();
+
+            return Ok(newUser);
+        } 
     }
 }

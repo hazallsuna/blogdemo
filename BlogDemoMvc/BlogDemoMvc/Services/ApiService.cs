@@ -1,10 +1,10 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
-using BlogDemoMvc.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using BlogDemoMvc.Models.Post;
 
 namespace BlogDemoMvc.Services
 {
@@ -53,6 +53,7 @@ namespace BlogDemoMvc.Services
             };
            
             var response = await _httpClient.PostAsJsonAsync("api/Posts/", dto);
+
             return response.IsSuccessStatusCode;
         }
 

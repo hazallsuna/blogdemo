@@ -1,4 +1,4 @@
-﻿using BlogDemoMvc.Models;
+﻿using BlogDemoMvc.Models.User;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 
@@ -11,6 +11,12 @@ namespace BlogDemoMvc.Services
         public ApiUserService(HttpClient httpClient)
         {
             _httpClient = httpClient;
+        }
+
+        public async Task<bool> RegisterUser(RegisterRequestViewModel user)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/Users/Register", user);
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<LoginResponseViewModel> AuthenticateUser(LoginRequestViewModel userDetails)

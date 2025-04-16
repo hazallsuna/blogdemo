@@ -1,4 +1,4 @@
-﻿using BlogDemoMvc.Models;
+﻿using BlogDemoMvc.Models.Post;
 using BlogDemoMvc.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -31,7 +31,7 @@ namespace BlogDemoMvc.Controllers
 
             ViewBag.Categories=await _apiService.GetCategoriesAsSelectItems(categoryId ?? 0);
             return View(posts);
-        }
+         }
         public async Task<IActionResult> Create()
         {
             var token = HttpContext.Session.GetString("APIToken");
@@ -124,7 +124,7 @@ namespace BlogDemoMvc.Controllers
         {
             var token = HttpContext.Session.GetString("APIToken");
             if (string.IsNullOrEmpty(token))
-                return RedirectToAction("Login", "AuthUser");
+                return View("AccessDenied");
 
             var postViewModel = await _apiService.GetPostByIdForDelete(id,token);
 

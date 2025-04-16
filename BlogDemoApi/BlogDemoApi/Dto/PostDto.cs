@@ -6,10 +6,8 @@ namespace BlogDemoApi.Dto
     public class PostDto
     {
         public int PostId { get; set; }
-
-        [Required]
         public string Title { get; set; } = string.Empty;
-        public string Image { get; set; } = "ai.jpg";
+        public string Image { get; set; } = "ai.jpg" ;
         public DateTime PublishedOn { get; set; }
 
         [Required]
@@ -20,6 +18,7 @@ namespace BlogDemoApi.Dto
         public int CategoryId { get; set; }
         public string CategoryName { get; set; } = string.Empty;
         public List<SelectListItem>? Categories { get; set; }
+        public int CommentCount { get; set; }
 
     }
 

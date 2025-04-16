@@ -29,7 +29,8 @@ namespace BlogDemoApi.Controllers
         {
             return await dbContext.Post
                 .Include(p => p.Category)
-                .Include(p => p.User) 
+                .Include(p => p.User)
+                .Include(p => p.Comments)
                 .Select(p => new PostDto
                 {
                     PostId = p.PostId,
@@ -41,7 +42,9 @@ namespace BlogDemoApi.Controllers
                     FirstName = p.User.FirstName,
                     LastName = p.User.LastName,
                     CategoryId = p.CategoryId,
-                    CategoryName = p.Category.CategoryName
+                    CategoryName = p.Category.CategoryName,
+                    CommentCount = p.Comments.Count()
+
                 })
                 .ToListAsync();
         }

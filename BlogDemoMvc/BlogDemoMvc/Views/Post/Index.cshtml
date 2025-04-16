@@ -1,14 +1,13 @@
-﻿@model List<PostViewModel>
+﻿@model List<BlogDemoMvc.Models.Post.PostViewModel>
 @using Microsoft.AspNetCore.Mvc.Rendering
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
 <div class="container mt-4">
-
     <div class="d-flex justify-content-between align-items-center mb-4">
         <!-- Yeni Post Butonu -->
-        <a asp-action="Create" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> New Post
+        <a asp-action="Create" class="btn btn-outline-dark">
+            <i class="bi bi-plus-lg me-1"></i> New Post
         </a>
 
         <!-- Kategori Dropdown -->
@@ -29,17 +28,30 @@
         {
             <div class="col">
                 <div class="card h-100 shadow-sm">
-                    <img src="@item.Image" class="card-img-top" alt="Post Image" style="height: 180px; object-fit: cover;" />
-
-                    <div class="card-body">
-                        <h5 class="card-title text-dark">@item.Title</h5>
-                        <p class="card-text text-muted">@item.Description</p>
-                        <span class="badge bg-secondary">@item.CategoryName</span>
-                    </div>
+                    <img src="@item.Image"
+                         class="card-img-top"
+                         style="height: 220px; width: 100%; object-fit: cover; object-position: center; display: block;" />
+                    <a asp-action="Details" asp-route-id="@item.PostId" class="text-decoration-none text-dark">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">
+                                <a asp-action="Details" asp-route-id="@item.PostId" class="text-decoration-none text-dark">
+                                    @item.Title
+                                </a>
+                            </h5>
+                            <p class="card-text text-muted">
+                                @(item.Description?.Length > 200 ? item.Description.Substring(0, 200) + "..." : item.Description)
+                            </p>
+                            <span class="badge bg-secondary">@item.CategoryName</span>
+                        </div>
+                    </a>
 
                     <div class="card-footer d-flex justify-content-between align-items-center">
                         <small class="text-muted">
                             <i class="bi bi-person-circle me-1"></i> @item.FirstName @item.LastName
+                        </small>
+
+                        <small class="text-muted">
+                            <i class="bi bi-chat me-1 fs-5"></i> @item.CommentCount
                         </small>
 
                         <div>

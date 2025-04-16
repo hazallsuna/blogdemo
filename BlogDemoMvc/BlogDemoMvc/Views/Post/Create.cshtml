@@ -1,4 +1,4 @@
-﻿@model PostViewModel
+﻿@model BlogDemoMvc.Models.Post.PostViewModel
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
@@ -52,15 +52,22 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
 @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
     <script>
         const form = document.getElementById("postForm");
 
         form.addEventListener("submit", async function (e) {
+            e.preventDefault(); 
+
+            if (!form.checkValidity()) {
+                form.classList.add("was-validated"); 
+                return;
+            }
+
             const imageFile = document.getElementById("imageFile").files[0];
+            const imageInput = document.getElementById("imageInput");
 
             if (imageFile) {
-                e.preventDefault();
-
                 const formData = new FormData();
                 formData.append("formFile", imageFile);
 
@@ -71,22 +78,29 @@
                     });
 
                     if (!response.ok) {
-                        alert("Görsel yüklenemedi.");
+                        alert("Image upload failed.");
                         return;
                     }
 
                     const data = await response.json();
-                    document.getElementById("imageInput").value = data.imageUrl;
 
-                    form.submit();
+                    if (!data.imageUrl) {
+                        alert("Image upload failed: no image URL returned.");
+                        return;
+                    }
+
+                    imageInput.value = data.imageUrl;
                 } catch (err) {
-                    console.error("Görsel yüklenirken hata oluştu:", err);
-                    alert("Sunucu hatası.");
+                    alert("An error occurred while uploading the image.");
+                    return;
                 }
             } else {
-                document.getElementById("imageInput").value = "/img/ai.jpg";
-                form.submit();
+                imageInput.value = "/img/ai.jpg"; 
             }
+          
+            form.submit();
         });
     </script>
 }
+
+

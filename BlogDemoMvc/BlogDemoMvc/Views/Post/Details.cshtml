@@ -1,4 +1,5 @@
-﻿@model PostViewModel
+﻿@model BlogDemoMvc.Models.Post.PostViewModel
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 <style>
     button:focus {
@@ -49,11 +50,11 @@
             foreach (var comment in Model.Comments)
             {
                 <div class="d-flex mb-4">
-                    <img src="~/user.jpg" class="rounded-circle me-3" width="45" height="45" />
+                    <i class="bi bi-person-circle text-secondary me-3" style="font-size: 45px; line-height: 1;"></i>
                     <div>
                         <div class="fw-normal">@comment.FirstName @comment.LastName</div>
                         <small class="text-muted">@comment.PublishedOn.ToString("dd.MM.yyyy")</small>
-                        <p class="mt-2">@comment.Text</p>
+                        <p class="mt-2">@Html.Raw(comment.Text)</p>
                     </div>
                 </div>
             }
@@ -63,17 +64,31 @@
             <p class="text-muted">No comments yet.</p>
         }
     </div>
-
     <!-- Add Comment -->
     <div class="card p-4 shadow-sm mb-5" style="max-width: 800px;">
         <form asp-action="AddComment" method="post">
             <input type="hidden" name="PostId" value="@Model.PostId" />
-            <div class="form-group mb-3">
-                <textarea name="Text" rows="3" class="form-control shadow-sm" placeholder="What are your thoughts?"></textarea>
+            <input type="hidden" name="Text" id="hiddenText" />
+
+            <div class="form-group mb-2">
+                <!-- Basit toolbar -->
+                <button type="button" class="btn btn-sm btn-outline-secondary me-1" onclick="formatText('bold')">
+                    <strong>B</strong>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="formatText('italic')">
+                    <em>i</em>
+                </button>
             </div>
+
+            <!-- Düzenleme alanı -->
+            <div contenteditable="true" id="commentEditor"
+                 class="form-control mb-3 shadow-sm"
+                 placeholder="What are your thoughts?"
+                 style="min-height: 100px; border: 1px solid #ced4da; border-radius: 4px;"></div>
+
             <div class="d-flex justify-content-end gap-2">
                 <button type="button" class="btn btn-light border custom-cancel-btn"
-                        onclick="document.querySelector('textarea[name=Text]').value = '';">
+                        onclick="document.getElementById('commentEditor').innerHTML = '';">
                     <i class="bi bi-x-lg"></i> Cancel
                 </button>
                 <button type="submit" class="btn btn-dark custom-respond-btn">
@@ -81,5 +96,15 @@
                 </button>
             </div>
         </form>
-    </div>
 </div>
+    <script>
+        function formatText(command) {
+            const editor = document.getElementById('commentEditor');
+            editor.focus();
+            document.execCommand(command, false, null);
+        }
+
+        document.querySelector('form').addEventListener('submit', function () {
+            document.getElementById("hiddenText").value = document.getElementById("commentEditor").innerHTML;
+        });
+    </script>

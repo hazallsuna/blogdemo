@@ -7,7 +7,7 @@ namespace BlogDemoApi.Dto
     {
         public int PostId { get; set; }
         public string Title { get; set; } = string.Empty;
-        public string Image { get; set; } = "ai.jpg" ;
+        public string Image { get; set; } = "ai.jpg";
         public DateTime PublishedOn { get; set; }
 
         [Required]

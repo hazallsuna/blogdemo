@@ -5,6 +5,7 @@ namespace BlogDemoMvc.Models.Post
 {
     public class PostUpdateViewModel
     {
+
         public int PostId { get; set; }
 
         [Required(ErrorMessage = "Title is required.")]

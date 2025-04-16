@@ -36,7 +36,7 @@ builder.Services.AddHttpClient<ApiService, ApiService>(client =>
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(100);
+    options.IdleTimeout = TimeSpan.FromSeconds(150);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });

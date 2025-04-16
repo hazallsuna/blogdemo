@@ -54,31 +54,34 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        const updateForm = document.getElementById("updateForm");
+               const updateForm = document.getElementById("updateForm");
 
         updateForm.addEventListener("submit", async function (e) {
-            if (!updateForm.checkValidity()) return;
-
             const imageFile = document.getElementById("imageFile").files[0];
 
             if (imageFile) {
-                e.preventDefault();
+                e.preventDefault(); // sadece dosya varsa iptal et
 
                 const formData = new FormData();
                 formData.append("formFile", imageFile);
 
-                const response = await fetch("https://localhost:7278/api/Posts/Image", {
-                    method: "POST",
-                    body: formData
-                });
+                try {
+                    const response = await fetch("https://localhost:7278/api/Posts/Image", {
+                        method: "POST",
+                        body: formData
+                    });
 
-                const data = await response.json();
-                document.getElementById("imageInput").value = data.imageUrl;
+                    const data = await response.json();
+                    document.getElementById("imageInput").value = data.imageUrl;
 
-                updateForm.requestSubmit();
+                    // 🔁 fetch tamamlandıktan sonra formu yeniden gönder
+                    updateForm.submit(); // requestSubmit yerine submit kullan
+
+                } catch (error) {
+                    console.error("Image upload failed", error);
+                    alert("Image upload failed. Please try again.");
+                }
             }
         });
     </script>
 }
-
-

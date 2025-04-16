@@ -119,7 +119,6 @@ namespace BlogDemoApi.Controllers
 
         }
 
-
         //güncellenecek post için form getiriyoruz
         [Authorize]
         [HttpGet("{id}")]
@@ -185,8 +184,8 @@ namespace BlogDemoApi.Controllers
             postDetails.Image = postDto.Image;
             postDetails.PublishedOn = DateTime.Now;
 
-            dbContext.SaveChanges(); 
-            
+            dbContext.SaveChanges();
+
             return Ok();
         }
 

@@ -86,14 +86,14 @@ namespace BlogDemoMvc.Controllers
         public async Task<IActionResult> GetUpdatePost(int id)
         {
             var token = HttpContext.Session.GetString("APIToken");
-            var postUpdateViewModel = await _apiService.GetPostForUpdate(id,token);
+            var postUpdateViewModel = await _apiService.GetPostForUpdate(id, token);
 
             if (postUpdateViewModel == null)
                 return View("AccessDenied");
 
             postUpdateViewModel.Categories = await _apiService.GetCategoriesAsSelectItems(postUpdateViewModel.CategoryId);
 
-            return View("Update",postUpdateViewModel);
+            return View("Update", postUpdateViewModel);
         }
         public async Task<IActionResult> UpdatePost(int id, PostUpdateViewModel model)
         {
@@ -109,7 +109,7 @@ namespace BlogDemoMvc.Controllers
                 return View("Update", model);
             }
 
-            bool success = await _apiService.UpdatePost(id, model,token);
+            bool success = await _apiService.UpdatePost(id, model, token);
 
             if (success)
             {

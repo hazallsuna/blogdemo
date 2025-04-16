@@ -32,13 +32,25 @@
 
 ## 🛠️ Kullanılan Teknolojiler
 
-- **ASP.NET Core MVC** - Web uygulamasının frontend katmanı  
-- **ASP.NET Core Web API** - Backend servisler  
-- **Entity Framework Core** - Veritabanı işlemleri için ORM  
-- **MS SQL Server** - Veritabanı  
-- **JWT (JSON Web Token)** - Kullanıcı kimlik doğrulama ve yetkilendirme  
-- **Bootstrap 5 + Icons** - Modern responsive tasarım  
-- **ASP.NET Model Validation & jQuery Validation** – Server & Client-side form validation  
+### ⚙️ Backend
+- **ASP.NET Core Web API** – RESTful API servislerini sunar. Controller tabanlı yapı ile dış dünyaya veri sağlar.
+- **Entity Framework Core** – Veritabanı işlemleri için ORM olarak kullanıldı.  
+  - `Code First` yaklaşımıyla modellemeler yapıldı.  
+  - `EF Core Migrations` ile veritabanı şeması otomatik oluşturuldu ve güncellendi.
+- **MS SQL Server** – Uygulamanın ilişkisel veritabanı motorudur.
+- **JWT (JSON Web Token)** – Kullanıcı kimlik doğrulama ve yetkilendirme işlemleri için kullanıldı. MVC tarafında token bazlı erişimle korunan API uç noktalarına erişim sağlandı.
+
+### 🖥️ Frontend (MVC Katmanı)
+- **ASP.NET Core MVC** – Uygulamanın frontend tarafında kullanıldı. Razor View ile dinamik HTML sayfaları oluşturuldu.
+- **Bootstrap 5** – Responsive ve modern arayüz tasarımı için kullanıldı.
+  - MVC projesine **LibMan (Library Manager)** üzerinden yüklendi (`libman.json` ile).  
+  - Bootstrap CSS ve JS kütüphaneleri proje klasörlerine çekildi, bu sayede CDN bağımlılığı olmadan offline çalışabilir hale geldi.
+- **Model Doğrulama (Validation)**
+  - `ViewModel` sınıfları üzerinde `[Required]`, `[StringLength]` gibi anotasyonlarla **server-side validation** uygulandı.  
+  - Controller tarafında `ModelState.IsValid` ile validasyon kontrolü yapıldı.
+  - Razor View’larda `jquery.validate.min.js` ve `jquery.validate.unobtrusive.min.js` kullanılarak **client-side validation** da sağlandı.
+- **jQuery** – Doğrulama işlemlerinde ve kullanıcı arayüzü etkileşimlerinde kullanıldı.
+- **Bootstrap Icons** – Görsel zenginlik ve ikon kullanımı.
 
 ---
 
@@ -72,7 +84,7 @@
 ![Image](https://github.com/user-attachments/assets/573a366c-27db-41f5-9e21-5fb7043d3442)
 
 **Yeni Blog Gönderisi Oluşturma**  
-![Image](https://github.com/user-attachments/assets/623f3f6b-219a-4693-9639-35dbc74f205c)
+![Image](https://github.com/user-attachments/assets/050c988e-7206-483a-8e90-7b4eb473e278)
 
 **Blog Gönderisi Güncelleme**  
 ![Image](https://github.com/user-attachments/assets/7fd40793-ce4e-46e6-92c8-8264d1eff86d)

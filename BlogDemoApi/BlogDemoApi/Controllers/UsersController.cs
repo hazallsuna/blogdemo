@@ -27,6 +27,7 @@ namespace BlogDemoApi.Controllers
             _passwordHasher = passwordHasher;
         }
 
+        //giriş yap
         [HttpPost("Login")]
         public async Task<LoginResponse> Login(LoginRequest logindetails)
         {
@@ -72,6 +73,7 @@ namespace BlogDemoApi.Controllers
 
         }
 
+        //kayıt ol
         [HttpPost("Register")]
         public async Task<ActionResult<RegisterDto>> Register(RegisterDto registerDto)
         {

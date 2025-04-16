@@ -50,7 +50,7 @@ namespace BlogDemoMvc.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(obj); // Client-side validation hataları varsa
+                return View(obj); 
             }
 
             var objResponse = await _apiService.AuthenticateUser(obj);
@@ -63,7 +63,7 @@ namespace BlogDemoMvc.Controllers
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Invalid email or password."); // <== BURASI ÖNEMLİ
+                ModelState.AddModelError(string.Empty, "Invalid email or password."); 
                 return View(obj);
             }
         }

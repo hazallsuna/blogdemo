@@ -60,7 +60,7 @@
             const imageFile = document.getElementById("imageFile").files[0];
 
             if (imageFile) {
-                e.preventDefault(); // sadece dosya varsa iptal et
+                e.preventDefault(); 
 
                 const formData = new FormData();
                 formData.append("formFile", imageFile);
@@ -74,8 +74,8 @@
                     const data = await response.json();
                     document.getElementById("imageInput").value = data.imageUrl;
 
-                    // 🔁 fetch tamamlandıktan sonra formu yeniden gönder
-                    updateForm.submit(); // requestSubmit yerine submit kullan
+                  
+                    updateForm.submit(); 
 
                 } catch (error) {
                     console.error("Image upload failed", error);

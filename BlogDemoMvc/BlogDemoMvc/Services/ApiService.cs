@@ -3,7 +3,6 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using BlogDemoMvc.Models.Post;
 
 namespace BlogDemoMvc.Services

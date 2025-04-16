@@ -164,7 +164,7 @@ namespace BlogDemoMvc.Controllers
             // Add error handling
             if (!success)
             {
-                // Hata loglama veya TempData'ya mesaj ekleme işlemleri burada yapılabilir
+                
                 Console.WriteLine($"API Error: Comment could not be added");
             }
 

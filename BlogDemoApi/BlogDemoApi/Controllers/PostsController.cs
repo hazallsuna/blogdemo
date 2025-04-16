@@ -268,7 +268,6 @@ namespace BlogDemoApi.Controllers
             }
             catch (Exception ex)
             {
-                // ❗ buraya düşüyorsa logla:
                 return StatusCode(500, $"Sunucu hatası: {ex.Message}");
             }
         }
